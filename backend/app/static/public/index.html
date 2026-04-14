@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palacio - Feliz | Event and Private Resort by JC</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#16423C', foreground: '#F9F1E7' },
+                        secondary: { DEFAULT: '#F9F1E7', foreground: '#16423C' },
+                        accent: '#C7B7A3',
+                    },
+                    fontFamily: { 
+                        serif: ['Playfair Display', 'serif'], 
+                        sans: ['Inter', 'sans-serif'] 
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @media (max-width: 768px) { body { padding-bottom: 90px; } }
+        #availability, #bookingFormSection, #amenities, #reviews { scroll-margin-top: 80px; }
+        html { scroll-behavior: smooth; }
+        .hero-text-protection { text-shadow: 0 2px 10px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.5); }
+        .modal-open { overflow: hidden; }
+        .scale-in { animation: scaleIn 0.3s ease-out; }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-white font-sans text-slate-900">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+        <nav class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="/assets/images/logo.png" alt="Palacio Feliz Logo" class="h-10 w-10 md:h-12 md:w-12 object-contain transition-transform group-hover:scale-105">
+                <div class="flex flex-col">
+                    <span class="text-lg md:text-xl font-serif font-bold text-primary leading-none">Palacio - Feliz</span>
+                    <span class="text-[9px] uppercase tracking-[0.1em] text-slate-400 font-bold mt-0.5">Event & Private Resort</span>
+                </div>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                <a href="#amenities" class="hover:text-primary transition-colors">Amenities</a>
+                <a href="status.html" class="hover:text-primary transition-colors">Track Booking</a>
+                <a href="#bookingFormSection" class="bg-primary text-white px-5 py-2.5 rounded-lg hover:opacity-90 transition-all">Book Now</a>
+            </div>
+
+            <button id="mobileMenuBtn" class="md:hidden text-primary p-2"><i data-lucide="menu"></i></button>
+        </nav>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 py-6 flex flex-col gap-5 shadow-inner text-sm font-bold">
+            <a href="#home">Home</a>
+            <a href="#amenities">Amenities</a>
+            <a href="status.html">Track Booking</a>
+            <a href="#bookingFormSection" class="text-primary">Book Now</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="relative h-[75vh] min-h-[550px] w-full overflow-hidden bg-slate-900 text-white">
+            <img src="/assets/images/hero-bg.png" alt="Resort View" class="absolute inset-0 h-full w-full object-cover opacity-80">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
+
+            <div class="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+                <p class="mb-4 text-xs font-black uppercase tracking-[0.5em] text-white/90 hero-text-protection">SJDM, Bulacan</p>
+                <h1 class="max-w-4xl font-serif text-4xl md:text-7xl font-bold leading-tight hero-text-protection">
+                    Your Private <span class="text-secondary italic">Sanctuary</span>
+                </h1>
+                <p class="mt-6 max-w-xl text-lg text-white/95 font-medium hero-text-protection leading-relaxed">
+                    Experience exclusive comfort and luxury at Palacio - Feliz.
+                </p>
+                <div class="mt-10">
+                    <a href="#availability" class="inline-flex items-center justify-center rounded-lg bg-white px-10 py-4 text-sm font-bold text-primary shadow-2xl hover:bg-secondary transition-all active:scale-95">
+                        Check Availability
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="availability" class="relative z-20 -mt-16 px-4 pb-16">
+            <div class="mx-auto max-w-xl">
+                <div class="rounded-2xl bg-white p-6 md:p-8 shadow-2xl border border-slate-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-primary">
+                            <i data-lucide="calendar-check"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-serif font-bold text-slate-900">Secure Your Date</h2>
+                            <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest mt-1">Inquiry & Reservation</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3 md:flex-row md:gap-4">
+                        <input type="date" id="event_date" class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 md:py-3 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all bg-white cursor-pointer" placeholder="Tap to select date...">
+                        <button id="checkAvailabilityBtn" class="bg-primary text-white px-8 py-4 md:py-3 rounded-xl font-bold shadow-md hover:opacity-95 transition-opacity">Check Date</button>
+                    </div>
+                    <div id="availabilityResult" class="mt-4 hidden p-4 rounded-xl border text-center transition-all duration-300">
+                        <p id="availabilityMessage" class="font-medium mb-3"></p>
+                        <a href="#bookingFormSection" id="proceedToBookBtn" class="hidden w-full md:w-auto mx-auto bg-primary text-white px-10 py-3 rounded-xl font-bold shadow-lg inline-block">Proceed to Reservation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="amenities" class="bg-[#FCFAF8] px-4 py-28 border-y border-slate-100">
+            <div class="mx-auto max-w-7xl">
+                <div class="text-center mb-20">
+                    <p class="text-xs font-black uppercase tracking-[0.4em] text-primary/40 mb-4">The Palacio Experience</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-slate-900">Resort Amenities</h2>
+                </div>
+                
+                <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/pool.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Pools"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Adult & Kiddie Pools</h3>
+                            <p class="text-slate-500 text-[15px]">Dive into our pristine dual-pool setup featuring a relaxing waterfall.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/social-deck.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Social Deck"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Poolside Social Deck</h3>
+                            <p class="text-slate-500 text-[15px]">High-ceiling, covered social area featuring a professional billiard table.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/lounge.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Lounge"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Entertainment Lounge</h3>
+                            <p class="text-slate-500 text-[15px]">Indoor sanctuary featuring a Smart TV for Netflix and premium sound for Karaoke.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/kitchen.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Kitchen"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Chef’s Island Kitchen</h3>
+                            <p class="text-slate-500 text-[15px]">Modern self-catering space with an island bar, refrigerator, and microwave.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/rooms.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Rooms"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Executive Suites</h3>
+                            <p class="text-slate-500 text-[15px]">Air-conditioned rooms blending industrial-modern design with quality bunk beds.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6 group">
+                        <div class="aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-sm"><img src="/assets/images/night-view.jpg" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Night Ambiance"></div>
+                        <div class="px-2">
+                            <h3 class="font-serif text-2xl font-bold text-slate-900 mb-3">Night Ambiance</h3>
+                            <p class="text-slate-500 text-[15px]">Vibrant underwater pool colors and warm garden lighting for evening swims.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bookingFormSection" class="bg-secondary/40 px-4 py-28 border-t border-slate-100">
+            <div class="mx-auto max-w-2xl">
+                <div class="rounded-[2.5rem] bg-white border border-slate-100 p-10 md:p-14 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+                    <form id="bookingForm" class="space-y-8">
+                        <div class="text-center mb-10">
+                            <h2 class="font-serif text-3xl font-bold text-slate-900">Finalize Reservation</h2>
+                            <p class="text-sm text-slate-500 mt-3">Enter your details to block your selected date.</p>
+                        </div>
+                        
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <input type="text" id="guest_name" required placeholder="Full Name" class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-primary/10">
+                            <input type="tel" id="contact_number" required placeholder="Contact Number" class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-primary/10">
+                        </div>
+
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <input type="email" id="email" required placeholder="Email Address" class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-primary/10">
+                            <input type="number" id="pax" required placeholder="Total Guests" min="1" class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-primary/10">
+                        </div>
+
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <input type="date" id="book_event_date" required class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none bg-white cursor-pointer" placeholder="Select Event Date">
+                            <select id="payment_method" required class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none bg-white">
+                                <option value="GCash">GCash</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+
+                        <div class="grid gap-6 sm:grid-cols-2">
+                            <input type="number" id="deposit_amount" required placeholder="Deposit Amount (Min. 2000)" min="2000" class="w-full rounded-2xl border border-slate-200 px-5 py-4 text-sm font-bold outline-none focus:ring-4 focus:ring-primary/10">
+                            <div class="relative bg-slate-50 rounded-2xl border-2 border-dashed border-slate-100 p-2">
+                                <label class="block text-[10px] font-black uppercase text-slate-400 ml-1">Proof of Payment</label>
+                                <input type="file" id="receipt" required accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-primary file:text-white file:font-bold">
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 transition-all hover:bg-white hover:border-primary/20">
+                            <input id="terms_check" type="checkbox" required class="mt-1 h-5 w-5 rounded border-slate-300 text-primary">
+                            <div class="text-xs leading-relaxed">
+                                <label for="terms_check" class="font-black text-slate-800 uppercase">I agree to the <button type="button" onclick="openTermsModal()" class="text-primary underline">Resort Policies</button></label>
+                                <p class="text-slate-500 mt-1">Checking this confirms you will follow our resort rules.</p>
+                            </div>
+                        </div>
+
+                        <div id="formError" class="hidden text-red-500 text-sm font-bold text-center"></div>
+
+                        <button type="submit" id="submitBookingBtn" class="w-full bg-primary text-white py-6 rounded-[2rem] font-black text-lg shadow-2xl hover:translate-y-[-2px] active:translate-y-0 transition-all uppercase tracking-widest">Confirm Reservation</button>
+                    </form>
+
+                    <div id="bookingResult" class="mt-8 hidden rounded-[2.5rem] bg-emerald-50 border border-emerald-100 p-10 text-center animate-pulse">
+                        <i data-lucide="check-circle" class="h-16 w-16 text-emerald-500 mx-auto mb-6"></i>
+                        <h3 class="font-serif text-3xl font-bold text-emerald-900 leading-none">Successful!</h3>
+                        <p class="text-emerald-700 mt-6">Booking Code: <span id="displayBookingCode" class="font-black text-xl"></span></p>
+                        <a href="status.html" class="mt-8 inline-block bg-primary text-white px-10 py-4 rounded-xl font-bold text-sm shadow-xl">Track My Status Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-white py-24">
+        <div class="mx-auto max-w-7xl px-4 grid gap-16 md:grid-cols-3 text-center md:text-left">
+            <div>
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-8">
+                    <img src="/assets/images/logo.png" class="h-14 w-auto object-contain" alt="Logo">
+                    <span class="text-2xl font-serif font-bold tracking-tight text-secondary leading-none">Palacio - Feliz</span>
+                </div>
+                <p class="text-sm opacity-50 font-medium">"Event and Private Resort" by JC.</p>
+                <div class="mt-8 flex items-center justify-center md:justify-start gap-3 text-accent">
+                    <i data-lucide="phone" class="h-5 w-5"></i>
+                    <span class="text-lg font-bold tracking-widest">0931 058 3564</span>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-[0.3em] mb-10 opacity-30">Our Location</h3>
+                <p class="text-lg font-serif leading-relaxed mb-6">
+                    Block 7 Lot 7, Evergreen Ave., Gaya-Gaya <br>
+                    San Jose del Monte, 3023 Bulacan
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-xs font-black uppercase tracking-[0.3em] mb-10 opacity-30">Connect</h3>
+                <div class="flex justify-center md:justify-start gap-10 items-center">
+                    <a href="https://www.facebook.com/profile.php?id=61575820877449" target="_blank" class="hover:text-accent transition-all hover:scale-125"><i data-lucide="facebook" class="h-8 w-8"></i></a>
+                    <a href="https://www.tiktok.com/@palacio.feliz" target="_blank" class="hover:text-accent transition-all hover:scale-125">
+                        <svg class="h-7 w-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.59-1.01V14.5c.01 2.1-.6 4.2-1.9 5.86-1.41 1.83-3.6 2.94-5.89 3.12-2.3.17-4.66-.46-6.43-2.01-1.89-1.63-2.9-4.14-2.63-6.61.21-2.4 1.68-4.64 3.86-5.74 1.48-.74 3.18-.94 4.81-.66v4.02c-.89-.22-1.87-.13-2.69.29-1.07.51-1.85 1.65-1.93 2.86-.09 1.47.67 2.95 1.89 3.73 1.05.65 2.37.78 3.53.37 1.25-.43 2.18-1.59 2.31-2.9.03-.31.02-.62.02-.93V.02z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="termsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-xl">
+        <div class="bg-white w-full max-w-2xl max-h-[85vh] rounded-[3rem] shadow-2xl flex flex-col scale-in overflow-hidden">
+            <div class="p-8 bg-primary text-white flex justify-between items-center">
+                <h3 class="font-serif text-2xl font-bold">Resort Terms & Policies</h3>
+                <button onclick="closeTermsModal()" class="hover:bg-white/10 p-2 rounded-full transition-all"><i data-lucide="x"></i></button>
+            </div>
+            <div class="p-10 overflow-y-auto text-sm space-y-8 text-slate-600">
+                <p><strong>1. Deposits:</strong> ₱2,000 non-refundable fee required.</p>
+                <p><strong>2. Rules:</strong> Proper attire in pools. Karaoke until 10 PM.</p>
+            </div>
+            <div class="p-10 bg-slate-50 text-right border-t border-slate-100">
+                <button onclick="closeTermsModal()" class="bg-primary text-white px-10 py-3 rounded-xl font-bold">I Understand</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 px-6 py-4 flex items-center justify-between shadow-2xl">
+        <a href="#home" class="flex flex-col items-center gap-1 text-slate-400"><i data-lucide="home" class="h-5 w-5"></i><span class="text-[9px] font-black uppercase">Home</span></a>
+        <a href="status.html" class="flex flex-col items-center gap-1 text-slate-400"><i data-lucide="search-code" class="h-5 w-5"></i><span class="text-[9px] font-black uppercase">Track</span></a>
+        <a href="#bookingFormSection" class="flex flex-col items-center gap-1 -mt-16 bg-primary text-white p-5 rounded-full border-[6px] border-white shadow-2xl active:scale-90 transition-all"><i data-lucide="calendar-plus" class="h-7 w-7"></i></a>
+    </div>
+
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/book.js"></script> 
+</body>
+</html>

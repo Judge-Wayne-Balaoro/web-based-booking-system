@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Reservation | Palacio - Feliz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#16423C', foreground: '#F9F1E7' },
+                        secondary: { DEFAULT: '#F9F1E7', foreground: '#16423C' },
+                    },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#FCFAF8] font-sans text-slate-900 min-h-screen flex flex-col">
+
+    <nav class="p-6">
+        <div class="mx-auto max-w-7xl flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="assets/images/logo.png" class="h-10 w-10 object-contain" alt="Logo">
+                <span class="font-serif font-bold text-primary">Palacio - Feliz</span>
+            </a>
+            <a href="index.html" class="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-primary transition-colors">Back to Home</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-lg">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-12 border border-slate-100">
+                <div class="text-center mb-10">
+                    <div class="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/5 text-primary mb-6">
+                        <i data-lucide="search-code" class="h-8 w-8"></i>
+                    </div>
+                    <h1 class="font-serif text-3xl font-bold text-slate-900">Track Reservation</h1>
+                    <p class="text-sm text-slate-500 mt-2">Enter your unique booking code to check status.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <input type="text" id="statusQuery" placeholder="e.g. PF-2026-XXXX" 
+                           class="w-full rounded-2xl border border-slate-200 px-6 py-4 text-center text-lg font-bold tracking-widest uppercase outline-none focus:ring-4 focus:ring-primary/10 transition-all">
+                    
+                    <button onclick="checkStatus()" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-xl hover:translate-y-[-2px] active:translate-y-0 transition-all">
+                        Search Status
+                    </button>
+                </div>
+            </div>
+
+            <div id="statusResult" class="mt-8 hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="bg-white rounded-[2.5rem] shadow-xl p-8 border border-slate-100">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Reservation For</p>
+                            <h3 id="resName" class="font-bold text-lg text-slate-900">---</h3>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Date</p>
+                            <h3 id="resDate" class="font-bold text-lg text-slate-900">---</h3>
+                        </div>
+                    </div>
+
+                    <div class="relative pt-8 pb-4">
+                        <div class="flex mb-2 items-center justify-between text-xs font-black uppercase tracking-tighter">
+                            <span class="text-primary">Inquiry</span>
+                            <span id="step2Label" class="text-slate-300">Approval</span>
+                            <span id="step3Label" class="text-slate-300">Confirmed</span>
+                        </div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-slate-100">
+                            <div id="statusBar" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary transition-all duration-1000" style="width: 33.33%"></div>
+                        </div>
+                        <p id="statusDesc" class="text-center text-xs text-slate-500 italic mt-4">"We are currently verifying your proof of payment."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-8 text-center">
+        <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300">© 2026 Palacio Feliz Resort</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function checkStatus() {
+            const code = document.getElementById('statusQuery').value;
+            const result = document.getElementById('statusResult');
+            
+            if(code.length < 4) {
+                alert("Please enter a valid code.");
+                return;
+            }
+
+            // SIMULATION LOGIC: 
+            // In a real app, this would fetch from a database.
+            // For now, let's just show a successful "Pending" result.
+            result.classList.remove('hidden');
+            
+            document.getElementById('resName').innerText = "Guest User";
+            document.getElementById('resDate').innerText = "March 20, 2026";
+            
+            // Set Progress to 33% (Pending/Inquiry)
+            document.getElementById('statusBar').style.width = "33.33%";
+            document.getElementById('step2Label').className = "text-slate-300";
+            document.getElementById('step3Label').className = "text-slate-300";
+            document.getElementById('statusDesc').innerText = "We have received your request. Our team is checking the date availability.";
+        }
+    </script>
+</body>
+</html>
